@@ -28,12 +28,10 @@ public class Controller {
         this.userService = userService;
         this.taskService = taskService;
     }
-    //a
     @GetMapping("/users")
     public List<User> getAllUsers(){
         return userService.selectUsers();
     }
-    //b
     @PostMapping("/users/create")
     public User createUser(
             @RequestParam("name") String name,
@@ -43,26 +41,25 @@ public class Controller {
     ){
         return userService.insertUser(new User(name,lastName,email,password,false, LocalDateTime.now()));
     }
-    //c
     @GetMapping("users/IdOrEmail")
     public List<User> getByEmail(Integer userId,String email){
         return userService.getUserByEmailOrId(userId,email);
     }
-    //d
+
     @PutMapping("/users/activate/id={userId}")
     public boolean activateUser(
             @PathVariable("userId") int userId
     ){
         return userService.activateUser(userId);
     }
-    //e
+
     @DeleteMapping("/users/delete")
     public boolean deleteUserById(
             @RequestParam("userId") int userId
     ){
         return userService.deleteUserById(userId);
     }
-    //f
+
     @PostMapping("/tasks/create")
     public Task createTask(
             @RequestParam("title") String title,
@@ -74,7 +71,7 @@ public class Controller {
     ){
         return taskService.createTask(new Task(title,description,LocalDateTime.now(),type,status,userId));
     }
-    //g
+
     @GetMapping("/tasks/date")
     public List<Task> getAllTasks(){
         return taskService.selectTasks();
@@ -85,14 +82,14 @@ public class Controller {
         return taskService.getTaskByTytleOrStatusOrType(title,type,status);
     }
 
-    //j
+
     @DeleteMapping("/tasks/delete")
     public boolean deleteTaskById(
             @RequestParam("taskId") int taskId
     ){
         return taskService.deleteTaskById(taskId);
     }
-    //i
+
     @PutMapping("/task/status/id={taskId}")
     public Task changeTaskStatus(
             @PathVariable("taskId") int taskId,
